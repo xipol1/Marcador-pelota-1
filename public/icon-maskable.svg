@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="redGrad" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#D8343C"/>
+      <stop offset="100%" stop-color="#8A1A21"/>
+    </radialGradient>
+    <radialGradient id="blueGrad" cx="50%" cy="60%" r="70%">
+      <stop offset="0%" stop-color="#264D75"/>
+      <stop offset="100%" stop-color="#0F2540"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Maskable: full bleed background, content inside 80% safe area -->
+  <rect width="512" height="512" fill="#F2EBDC"/>
+
+  <!-- Centered content within safe area (256 ± 102 = 154 to 358) -->
+  <rect x="102" y="102" width="308" height="135" fill="url(#redGrad)"/>
+  <rect x="102" y="275" width="308" height="135" fill="url(#blueGrad)"/>
+  <rect x="102" y="237" width="308" height="38" fill="#C8941A"/>
+  <rect x="102" y="237" width="308" height="2" fill="#8C6712"/>
+  <rect x="102" y="273" width="308" height="2" fill="#8C6712"/>
+
+  <!-- Pelota -->
+  <circle cx="256" cy="256" r="46" fill="#1A1814"/>
+  <path d="M 213 244 Q 256 252 299 244" stroke="#FFF8E1" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M 213 268 Q 256 260 299 268" stroke="#FFF8E1" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

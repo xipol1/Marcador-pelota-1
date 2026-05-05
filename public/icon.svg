@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="redGrad" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#D8343C"/>
+      <stop offset="100%" stop-color="#8A1A21"/>
+    </radialGradient>
+    <radialGradient id="blueGrad" cx="50%" cy="60%" r="70%">
+      <stop offset="0%" stop-color="#264D75"/>
+      <stop offset="100%" stop-color="#0F2540"/>
+    </radialGradient>
+    <linearGradient id="creamGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF8E1"/>
+      <stop offset="100%" stop-color="#F2EBDC"/>
+    </linearGradient>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/>
+      <feColorMatrix values="0 0 0 0 0.10  0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0.08 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+    <clipPath id="rounded">
+      <rect width="512" height="512" rx="96" ry="96"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#rounded)">
+    <!-- Cream background -->
+    <rect width="512" height="512" fill="url(#creamGrad)"/>
+
+    <!-- Top half: Roig -->
+    <rect width="512" height="232" fill="url(#redGrad)"/>
+
+    <!-- Bottom half: Blau -->
+    <rect y="280" width="512" height="232" fill="url(#blueGrad)"/>
+
+    <!-- La ratlla (gold band in the middle) -->
+    <rect y="232" width="512" height="48" fill="#C8941A"/>
+    <rect y="232" width="512" height="3" fill="#8C6712"/>
+    <rect y="277" width="512" height="3" fill="#8C6712"/>
+
+    <!-- Pelota in the center -->
+    <circle cx="256" cy="256" r="58" fill="#1A1814"/>
+    <path d="M 200 240 Q 256 250 312 240" stroke="#FFF8E1" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M 200 272 Q 256 262 312 272" stroke="#FFF8E1" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+    <!-- Subtle stitched texture overlay -->
+    <rect width="512" height="512" fill="black" opacity="0.04" filter="url(#noise)"/>
+
+    <!-- Inner bevel / frame -->
+    <rect x="2" y="2" width="508" height="508" rx="94" ry="94" fill="none" stroke="#FFF8E1" stroke-width="2" opacity="0.25"/>
+  </g>
+</svg>
