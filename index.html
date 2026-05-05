@@ -46,7 +46,8 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
+    height: 100dvh;
+    height: 100vh; /* fallback */
     overflow: hidden;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -58,19 +59,19 @@
   #root {
     width: 100%;
     height: 100dvh;
-    height: 100vh;
+    height: 100vh; /* fallback */
     display: flex;
+    flex-direction: column;
+    /* Respect mobile system UI (iOS notch, Android nav bar) */
+    padding-top: env(safe-area-inset-top, 0);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
   }
   input, textarea {
     -webkit-user-select: text;
     user-select: text;
     font-size: 16px; /* prevents iOS zoom */
-  }
-  @supports (padding: env(safe-area-inset-top)) {
-    body {
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
-    }
   }
   /* Loading splash */
   #loader {
@@ -439,7 +440,7 @@ function PelotaScoreboard() {
   }[state.modo];
 
   const scoreFontSize = (label) =>
-    label.length > 2 ? 'clamp(2.6rem, 14vw, 4.6rem)' : 'clamp(4rem, 22vw, 7rem)';
+    label.length > 2 ? 'clamp(2rem, 11vw, 3.6rem)' : 'clamp(3rem, 17vw, 5rem)';
 
   /* ---- TEAM PANEL ---- */
   const TeamPanel = ({ team, fallbackLabel, displayName, color, colorDark, colorDeep, score, isVal, games, isServer, position }) => {
@@ -455,7 +456,7 @@ function PelotaScoreboard() {
         }}
       >
         {/* Header bar */}
-        <div className="px-4 pt-2.5 pb-1.5 flex items-center justify-between gap-2" style={{ flexShrink: 0 }}>
+        <div className="px-4 pt-2 pb-1 flex items-center justify-between gap-2" style={{ flexShrink: 0 }}>
           <div className="flex items-center gap-2 min-w-0 flex-1">
             <div
               className="flex-shrink-0"
@@ -501,7 +502,7 @@ function PelotaScoreboard() {
               style={{
                 fontFamily: F_DISPLAY,
                 fontWeight: 800,
-                fontSize: '1.55rem',
+                fontSize: '1.35rem',
                 color: color,
                 lineHeight: 1,
               }}
@@ -531,7 +532,7 @@ function PelotaScoreboard() {
         </div>
 
         {/* +1 PUNT button */}
-        <div className="px-3 pb-3" style={{ flexShrink: 0 }}>
+        <div className="px-3 pb-2" style={{ flexShrink: 0 }}>
           <button
             onClick={() => dispatch({ type: 'POINT', team })}
             disabled={!active}
@@ -544,9 +545,9 @@ function PelotaScoreboard() {
               opacity: active ? 1 : 0.5,
               border: `1px solid ${active ? colorDark : C.line}`,
               borderRadius: 8,
-              padding: '12px 16px',
+              padding: '8px 14px',
               boxShadow: active
-                ? `0 4px 0 ${colorDeep}, inset 0 1px 0 ${C.cream}33`
+                ? `0 3px 0 ${colorDeep}, inset 0 1px 0 ${C.cream}33`
                 : 'none',
               fontFamily: F_DISPLAY,
               transition: 'all 0.08s ease',
@@ -557,7 +558,7 @@ function PelotaScoreboard() {
               <div
                 style={{
                   fontWeight: 900,
-                  fontSize: 'clamp(2rem, 9vw, 2.6rem)',
+                  fontSize: 'clamp(1.5rem, 7vw, 2rem)',
                   lineHeight: 0.9,
                   letterSpacing: '-0.02em',
                 }}
@@ -568,7 +569,7 @@ function PelotaScoreboard() {
                 <span
                   style={{
                     fontWeight: 800,
-                    fontSize: '1.3rem',
+                    fontSize: '1.05rem',
                     letterSpacing: '0.04em',
                     lineHeight: 1,
                   }}
@@ -579,10 +580,10 @@ function PelotaScoreboard() {
                   className="opacity-80 truncate"
                   style={{
                     fontFamily: F_MONO,
-                    fontSize: '8.5px',
+                    fontSize: '8px',
                     fontWeight: 700,
                     letterSpacing: '0.22em',
-                    marginTop: 3,
+                    marginTop: 2,
                     maxWidth: 140,
                   }}
                 >
@@ -611,8 +612,8 @@ function PelotaScoreboard() {
         background: C.bg,
         fontFamily: F_SERIF,
         color: C.ink,
-        height: '100dvh',
-        minHeight: '100vh',
+        height: '100%',
+        flex: 1,
       }}
     >
       <style>{`
@@ -707,7 +708,7 @@ function PelotaScoreboard() {
 
       {/* HEADER */}
       <header
-        className="px-4 py-2.5 flex items-center justify-between grain"
+        className="px-4 py-2 flex items-center justify-between grain"
         style={{ borderBottom: `1px solid ${C.line}`, flexShrink: 0 }}
       >
         <div>
@@ -718,7 +719,7 @@ function PelotaScoreboard() {
             PILOTA VALENCIANA
           </div>
           <div
-            className="text-xl leading-tight mt-0.5"
+            className="text-lg leading-tight mt-0.5"
             style={{ fontFamily: F_SERIF, fontWeight: 700, fontStyle: 'italic' }}
           >
             Llargues{' '}
@@ -859,7 +860,7 @@ function PelotaScoreboard() {
 
       {/* ACTIONS */}
       <div
-        className="px-3 pt-2.5 pb-3 grid grid-cols-3 gap-2"
+        className="px-3 pt-2 pb-2 grid grid-cols-3 gap-2"
         style={{
           background: C.paperDark,
           borderTop: `1px solid ${C.line}`,
@@ -878,8 +879,8 @@ function PelotaScoreboard() {
             opacity: canRalla1 ? 1 : 0.45,
             border: `1px solid ${canRalla1 ? C.redDark : C.line}`,
             borderRadius: 6,
-            paddingTop: 9,
-            paddingBottom: 8,
+            paddingTop: 6,
+            paddingBottom: 6,
             boxShadow: canRalla1 ? `0 3px 0 ${C.redDeep}` : 'none',
           }}
         >
@@ -887,7 +888,7 @@ function PelotaScoreboard() {
             style={{
               fontFamily: F_DISPLAY,
               fontWeight: 900,
-              fontSize: '1.3rem',
+              fontSize: '1.1rem',
               lineHeight: 1,
               letterSpacing: '-0.01em',
             }}
@@ -914,8 +915,8 @@ function PelotaScoreboard() {
             opacity: canRalla2 ? 1 : 0.45,
             border: `1px solid ${canRalla2 ? C.blueDark : C.line}`,
             borderRadius: 6,
-            paddingTop: 9,
-            paddingBottom: 8,
+            paddingTop: 6,
+            paddingBottom: 6,
             boxShadow: canRalla2 ? `0 3px 0 ${C.blueDeep}` : 'none',
           }}
         >
@@ -923,7 +924,7 @@ function PelotaScoreboard() {
             style={{
               fontFamily: F_DISPLAY,
               fontWeight: 900,
-              fontSize: '1.3rem',
+              fontSize: '1.1rem',
               lineHeight: 1,
               letterSpacing: '-0.01em',
             }}
@@ -948,8 +949,8 @@ function PelotaScoreboard() {
             opacity: canUndo ? 1 : 0.4,
             border: `1px solid ${canUndo ? C.ink : C.line}`,
             borderRadius: 6,
-            paddingTop: 9,
-            paddingBottom: 8,
+            paddingTop: 6,
+            paddingBottom: 6,
             boxShadow: canUndo ? '0 3px 0 #000' : 'none',
           }}
         >
@@ -957,7 +958,7 @@ function PelotaScoreboard() {
             style={{
               fontFamily: F_DISPLAY,
               fontWeight: 900,
-              fontSize: '1.3rem',
+              fontSize: '1.1rem',
               lineHeight: 1,
               letterSpacing: '-0.01em',
             }}
